@@ -1,9 +1,12 @@
 const express = require('express');
-const mysql = require('mysql2');
+
 
 // May need to move this to a different file
 const inquirer = require('inquirer');
 const cTable = require('console.table');
+
+// DB Connection
+const db = require('./config/connection');
 
 
 
