@@ -1,26 +1,50 @@
-const express = require('express');
-
-
-// May need to move this to a different file
 const inquirer = require('inquirer');
-const cTable = require('console.table');
+// const cTable = require('console.table');
+const department  = require('./src/department');
+
 
 // DB Connection
 const db = require('./config/connection');
 
 
+const questions = [
+    {
+      type: "list",
+      name: "menuOption",
+      message: "Please choose one of the following options:",
+      choices: [
+        "View all departments",
+        "Add department",
+        "View all roles",
+        "Add role",
+        "View all employees",
+        "Add an employee",
+        "Exit",
+      ],
+    },
+];
 
-const PORT = process.env.PORT || 3001;
-const app = new express();
+function askQuestions(){
 
-//Express middleware
-app.use(express.urlencoded({extended:false}));
-app.use(express.json());
+    inquirer.prompt(questions)
+        .then((response) => {
+    
+            switch(response.menuOption){
+                case 'View all departments':
+                    return department.viewAllDepartments();
+                    break;
+                case 'Exit':
+                    process.exit();
+                default:
+    
+                    console.log('i dont know what you want?');
+                    // re ask the questions
+                    break;
+            }
+    
+            
+        }).then(() => askQuestions())
 
-// routes
+}    
 
-// Turn on connection to db and server
-
-app.listen(PORT,()=>{
-    console.log(`Server running on ${PORT}`);
-});
+askQuestions();
