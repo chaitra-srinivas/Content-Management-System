@@ -26,6 +26,8 @@ JOIN department
 ON department.id = role.department_id
 ORDER BY employee.id;
 
+-- Add a department --
+
 
 
 

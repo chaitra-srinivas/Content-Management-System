@@ -2,47 +2,47 @@ const inquirer = require("inquirer");
 const department = require("./src/department");
 const role = require("./src/roles");
 const employee = require("./src/employees");
+const addDepartment = require("./src/addDepartment");
 
-const questions = [
-  {
-    type: "list",
-    name: "menuOption",
-    message: "Please choose one of the following options:",
-    choices: [
-      "View all departments",
-      "Add department",
-      "View all roles",
-      "Add role",
-      "View all employees",
-      "Add an employee",
-      "Exit",
-    ],
-  },
-];
+const connect = require("./config/connection");
 
-function askQuestions() {
-  inquirer
-    .prompt(questions)
-    .then((response) => {
-      switch (response.menuOption) {
-        case "View all departments":
-          return department.viewAllDepartments();
+const questions = require("./questions");
 
-        case "View all roles":
-          return role.viewAllRoles();
+// get department name
 
-        case "View all employees":
-          return employee.viewAllEmployees();
-
-        case "Exit":
-          process.exit();
-        default:
-          console.log("i dont know what you want?");
-
-          break;
-      }
-    })
-    .then(() => askQuestions());
+async function getDepartmentName() {
+  const department_details = await inquirer.prompt(questions.departmentDetails)
+      console.log(department_details.department_name);
+      addDepartment.addDepartment(department_details.department_name);
+      askQuestions();
 }
+
+async function askQuestions() {
+   
+    const useChoice = await inquirer.prompt(questions.menuOptions)
+        switch (useChoice.menuOption) {
+          case "View all departments":
+            return department.viewAllDepartments();
+  
+          case "View all roles":
+            return role.viewAllRoles();
+  
+          case "View all employees":
+            return employee.viewAllEmployees();
+  
+          case "Add department":
+            getDepartmentName();
+            break;
+          //    return addDepartment.addDepartment(getDepartmentName);
+  
+          case "Exit":
+            process.exit();
+          default:
+            console.log("i dont know what you want?");
+           
+            break;
+        }
+      
+  }
 
 askQuestions();

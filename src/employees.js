@@ -1,8 +1,8 @@
 const connect = require("../config/connection");
 
 async function viewAllEmployees() {
-  const sqlQuery = await connect();
-    const result_1 = await sqlQuery.execute(`SELECT 
+  const connection = await connect();
+    const result = await connection.execute(`SELECT 
       employee.id, 
       employee.first_name, 
       employee.last_name,
@@ -18,7 +18,7 @@ async function viewAllEmployees() {
       JOIN department
       ON department.id = role.department_id
       ORDER BY employee.id`);
-    const rows = result_1[0];
+    const rows = result[0];
     console.table(rows);
 }
 
