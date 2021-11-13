@@ -1,48 +1,49 @@
 const inquirer = require("inquirer");
+
 const department = require("./src/department");
 const role = require("./src/roles");
 const employee = require("./src/employees");
 const addDepartment = require("./src/addDepartment");
 
-const connect = require("./config/connection");
-
 const questions = require("./questions");
 
-// get department name
+// Get department name from user
 
-async function getDepartmentName() {
+async function addDepartmentName() {
   const department_details = await inquirer.prompt(questions.departmentDetails)
-      console.log(department_details.department_name);
-      addDepartment.addDepartment(department_details.department_name);
-      askQuestions();
+  await addDepartment.addDepartment(department_details.department_name);
 }
 
+
 async function askQuestions() {
-   
-    const useChoice = await inquirer.prompt(questions.menuOptions)
-        switch (useChoice.menuOption) {
+    let menuOption = "notdefined";
+
+    while (menuOption != "Exit") {
+        const userChoice = await inquirer.prompt(questions.menuOptions)
+        menuOption = userChoice.menuOption;
+        switch (menuOption) {
           case "View all departments":
-            return department.viewAllDepartments();
-  
+            await department.viewAllDepartments();
+            break;
           case "View all roles":
-            return role.viewAllRoles();
-  
+            await role.viewAllRoles();
+            break;
           case "View all employees":
-            return employee.viewAllEmployees();
-  
+            await employee.viewAllEmployees();
+            break;
           case "Add department":
-            getDepartmentName();
+            await addDepartmentName();
             break;
-          //    return addDepartment.addDepartment(getDepartmentName);
-  
           case "Exit":
-            process.exit();
+              break;
           default:
-            console.log("i dont know what you want?");
-           
-            break;
+            console.log("Not a valid input");
+            throw exception;
         }
-      
+    }
+    process.exit();
   }
 
 askQuestions();
+
+
