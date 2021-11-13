@@ -22,4 +22,22 @@ module.exports = {
       message: "Please enter the department name:",
     },
   
+  roleDetails:
+  [
+    {
+      type: "input",
+      name: "role_title",
+      message: "Please enter the role title:",
+    },
+    {
+      type: "input",
+      name: "salary",
+      message: "Please enter salary for the role:",
+    },
+    {
+      type: "input",
+      name: "department_name",
+      message: "Please enter department name for the role:",
+    },
+  ]
 };

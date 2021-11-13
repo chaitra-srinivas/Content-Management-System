@@ -26,8 +26,16 @@ JOIN department
 ON department.id = role.department_id
 ORDER BY employee.id;
 
--- Add a department --
+-- Add a new role --
 
 
+INSERT INTO role(title,salary,department_id)
+SELECT id from department
+WHERE 
+VALUES('Customer Service',50000,'Sales')
+WHERE 
+
+
+SELECT id from department where name =  
 
 
