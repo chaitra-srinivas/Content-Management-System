@@ -34,10 +34,6 @@ module.exports = {
       name: "salary",
       message: "Please enter salary for the role:",
     },
-    {
-      type: "input",
-      name: "department_name",
-      message: "Please enter department name for the role:",
-    },
+    
   ]
 };

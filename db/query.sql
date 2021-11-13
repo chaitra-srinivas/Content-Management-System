@@ -1,4 +1,4 @@
--- View all departments --
+/* -- View all departments --
 SELECT * FROM department;
 
 -- View all roles --
@@ -33,9 +33,9 @@ INSERT INTO role(title,salary,department_id)
 SELECT id from department
 WHERE 
 VALUES('Customer Service',50000,'Sales')
-WHERE 
+WHERE  */
 
 
-SELECT id from department where name =  
+SELECT id from department where name = "Sales";
 
 

@@ -7,6 +7,8 @@ const addDepartment = require("./src/addDepartment");
 const addRole = require("./src/addRole");
 
 const questions = require("./questions");
+const Choices = require("inquirer/lib/objects/choices");
+const Choice = require("inquirer/lib/objects/choice");
 
 // Get department name from user
 
@@ -18,11 +20,39 @@ async function addDepartmentName() {
 // Get role details from the user
 
 async function addRoleName() {
+  let departmentList = [];
+  departmentList = await department.viewAllDepartments();
+
+  console.log("departmentList",departmentList );
+
+  let departmentNames = [];
+  for (let i = 0; i < departmentList.length; i++) {
+    departmentNames.push(departmentList[i].name);
+  }
+
+  console.log("departmentNames",departmentNames );
+
+  questions.roleDetails.push({
+    type: "list",
+    name: "department_name",
+    message: "Please choose a department:",
+    choices: departmentNames,
+  });
+
   const role_details = await inquirer.prompt(questions.roleDetails);
+
+  console.log("roleDetails", role_details);
+
+  const department_id = departmentList.filter(
+    (res) => res.name === role_details.department_name
+  )[0].id;
+
+  console.log("department_id",department_id);
+
   await addRole.addRole(
     role_details.role_title,
     role_details.salary,
-    role_details.department_name
+    department_id
   );
 }
 
