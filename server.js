@@ -9,11 +9,8 @@ const addEmployee = require("./src/addEmployee");
 const updateEmployee = require("./src/updateEmployee");
 
 const questions = require("./questions");
-const Choices = require("inquirer/lib/objects/choices");
-const Choice = require("inquirer/lib/objects/choice");
-const e = require("express");
 
-// Get department name from user and store and store in database 
+// Get department name from user and store and store in database
 
 async function addDepartmentName() {
   const department_details = await inquirer.prompt(questions.departmentDetails);
@@ -23,7 +20,7 @@ async function addDepartmentName() {
 // Get role details from the user and store in database
 
 async function addRoleName() {
-  const departmentList = await department.viewAllDepartments();
+  const departmentList = await department.getAllDepartments();
   let departmentNames = [];
   for (let i = 0; i < departmentList.length; i++) {
     departmentNames.push(departmentList[i].name);
@@ -53,7 +50,7 @@ async function addRoleName() {
 
 async function addEmployeeDetails() {
   // Get all the roles
-  const rolesList = await role.viewAllRoles();
+  const rolesList = await role.getAllRoles();
   let roleNames = [];
   for (let i = 0; i < rolesList.length; i++) {
     roleNames.push(rolesList[i].title);
@@ -74,7 +71,9 @@ async function addEmployeeDetails() {
   let managerNames = [];
   managerNames.push("NULL");
   for (let i = 0; i < employeeList.length; i++) {
-    managerNames.push(employeeList[i].first_name);
+    managerNames.push(
+      employeeList[i].first_name + " " + employeeList[i].last_name
+    );
   }
 
   // push manager choices into inquirer prompt
@@ -100,7 +99,8 @@ async function addEmployeeDetails() {
 
   if (employee_details.manager_name !== "NULL") {
     manager_id = employeeList.filter(
-      (res) => res.first_name === employee_details.manager_name
+      (res) =>
+        res.first_name + " " + res.last_name === employee_details.manager_name
     )[0].id;
   }
 
@@ -113,32 +113,28 @@ async function addEmployeeDetails() {
 }
 
 // Get new role for an employee from the user and update database
-async function updateEmployeeRole(){
+async function updateEmployeeRole() {
+  // Get all employees
+  const employeeList = await employee.getAllEmployees();
 
-   // Get all employees
-   const employeeList = await employee.getAllEmployees();
-   console.log(employeeList);
+  let employeeNames = [];
+  for (let i = 0; i < employeeList.length; i++) {
+    employeeNames.push(
+      employeeList[i].first_name + " " + employeeList[i].last_name
+    );
+  }
 
-   let employeeNames = [];
-   for(let i=0;i<employeeList.length;i++){
-     employeeNames.push(employeeList[i].first_name+' '+employeeList[i].last_name);
+  // User prompted with a list of employee names
+  questions.updateEmployeeRole.push({
+    type: "list",
+    name: "employee_name",
+    message: "Please choose an employee to assign a new role:",
+    choices: employeeNames,
+  });
 
-   }
+  // Get a list of available roles
 
-   console.log(employeeNames);
-   // User prompted with a list of employee names
-   questions.updateEmployeeRole.push({
-     type: "list",
-     name: "employee_name",
-     message: "Please choose an employee to assign a new role:",
-     choices: employeeNames,
-   },)
-
-
-   // Get a list of available roles
-
-   const rolesList = 
-   await role.viewAllRoles();
+  const rolesList = await role.getAllRoles();
   let roleNames = [];
   for (let i = 0; i < rolesList.length; i++) {
     roleNames.push(rolesList[i].title);
@@ -153,20 +149,18 @@ async function updateEmployeeRole(){
     choices: roleNames,
   });
 
-
   const newRoleDetails = await inquirer.prompt(questions.updateEmployeeRole);
-  console.log(newRoleDetails);
 
-  const new_role_id = rolesList.filter(res => res.title === newRoleDetails.role_name)[0].id;
-  const employee_id = employeeList.filter(res=> (res.first_name + ' ' + res.last_name) === newRoleDetails.employee_name)[0].id;
+  const new_role_id = rolesList.filter(
+    (res) => res.title === newRoleDetails.role_name
+  )[0].id;
+  const employee_id = employeeList.filter(
+    (res) =>
+      res.first_name + " " + res.last_name === newRoleDetails.employee_name
+  )[0].id;
 
-  console.log(new_role_id, employee_id);
-
-  await updateEmployee.udpateEmployeeRole(new_role_id,employee_id);
-
+  await updateEmployee.udpateEmployeeRole(new_role_id, employee_id);
 }
-
-
 
 async function askQuestions() {
   let menuOption = "notdefined";

@@ -1,8 +1,8 @@
-const connect = require('../config/connection');
+const connect = require("../config/connection");
 
-async function viewAllRoles(){
-    const mysql = await connect();
-    const result = await mysql.execute(`SELECT
+async function viewAllRoles() {
+  const connection = await connect();
+  const result = await connection.execute(`SELECT
          role.id, 
          role.title, 
          department.name, 
@@ -11,9 +11,18 @@ async function viewAllRoles(){
          JOIN department 
          ON role.department_id = department.id 
          ORDER BY role.id`);
-    const rows = result[0];
-    console.table(rows);
-    return rows;
-}        
+  const rows = result[0];
+  console.table(rows);
+}
 
-module.exports = {viewAllRoles};
+async function getAllRoles() {
+  const connection = await connect();
+  const result = await connection.execute(`SELECT role.id, 
+role.department_id,
+role.title, 
+role.salary 
+FROM role`);
+  return result[0];
+}
+
+module.exports = { viewAllRoles, getAllRoles };
