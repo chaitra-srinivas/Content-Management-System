@@ -38,4 +38,6 @@ WHERE  */
 
 SELECT id from department where name = "Sales";
 
+UPDATE employee set role_id = '' WHERE id= ''
+
 

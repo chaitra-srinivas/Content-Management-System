@@ -10,6 +10,7 @@ module.exports = {
       "Add role",
       "View all employees",
       "Add an employee",
+      "Update employee role",
       "Exit",
     ],
   },
@@ -46,4 +47,9 @@ module.exports = {
       message: "Please enter employee's last name:",
     },
   ],
+
+  updateEmployeeRole:[
+
+  ],
+
 };
