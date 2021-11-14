@@ -1,29 +1,26 @@
 module.exports = {
-  menuOptions: 
-    {
-      type: "list",
-      name: "menuOption",
-      message: "Please choose one of the following options:",
-      choices: [
-        "View all departments",
-        "Add department",
-        "View all roles",
-        "Add role",
-        "View all employees",
-        "Add an employee",
-        "Exit",
-      ],
-    },
-  
-  departmentDetails: 
-    {
-      type: "input",
-      name: "department_name",
-      message: "Please enter the department name:",
-    },
-  
-  roleDetails:
-  [
+  menuOptions: {
+    type: "list",
+    name: "menuOption",
+    message: "Please choose one of the following options:",
+    choices: [
+      "View all departments",
+      "Add department",
+      "View all roles",
+      "Add role",
+      "View all employees",
+      "Add an employee",
+      "Exit",
+    ],
+  },
+
+  departmentDetails: {
+    type: "input",
+    name: "department_name",
+    message: "Please enter the department name:",
+  },
+
+  roleDetails: [
     {
       type: "input",
       name: "role_title",
@@ -34,6 +31,19 @@ module.exports = {
       name: "salary",
       message: "Please enter salary for the role:",
     },
-    
-  ]
+  ],
+
+  employeeDetails: [
+    {
+      type: "input",
+      name: "first_name",
+      message: "Please enter employee's first name:",
+    },
+
+    {
+      type: "input",
+      name: "last_name",
+      message: "Please enter employee's last name:",
+    },
+  ],
 };

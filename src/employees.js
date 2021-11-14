@@ -1,5 +1,6 @@
 const connect = require("../config/connection");
 
+
 async function viewAllEmployees() {
   const connection = await connect();
     const result = await connection.execute(`SELECT 
@@ -22,4 +23,12 @@ async function viewAllEmployees() {
     console.table(rows);
 }
 
-module.exports = { viewAllEmployees };
+async function getAllEmployees() {
+   const connection = await connect();
+     const result = await connection.execute(`SELECT 
+       * FROM employee`);
+     const rows = result[0];
+     return rows;
+ }
+
+module.exports = { viewAllEmployees,getAllEmployees };

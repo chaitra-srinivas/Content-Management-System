@@ -13,6 +13,7 @@ async function viewAllRoles(){
          ORDER BY role.id`);
     const rows = result[0];
     console.table(rows);
+    return rows;
 }        
 
 module.exports = {viewAllRoles};
