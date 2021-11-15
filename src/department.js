@@ -6,7 +6,6 @@ async function viewAllDepartments() {
   const rows = result[0];
   console.table(rows);
   return rows;
- 
 }
 
 async function getAllDepartments() {

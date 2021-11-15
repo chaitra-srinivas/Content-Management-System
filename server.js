@@ -14,7 +14,7 @@ const questions = require("./questions");
 
 async function addDepartmentName() {
   const department_details = await inquirer.prompt(questions.departmentDetails);
-  await addDepartment.addDepartment(department_details.department_name);
+ await addDepartment.addDepartment(department_details.department_name);
 }
 
 // Get role details from the user and store in database

@@ -66,7 +66,7 @@ THEN I am prompted to select an employee to update and their new role and this i
     This application is convered under the MIT License.
     
 
-    ## [Walkthrough video](https://heroku-notes-taker.herokuapp.com/)
+    ## [Walkthrough video](https://drive.google.com/file/d/1VekP3HOarsdL135u5UL5HZomkRtaCib9/view?usp=sharing)
 
 
     Copyright © 2021 Chaitra Srinivasamurthy 
