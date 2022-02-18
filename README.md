@@ -58,7 +58,7 @@ THEN I am prompted to select an employee to update and their new role and this i
     ## Questions
     For any questions regarding the project please visit my 
     GitHub Profile @ 
-    [chaitra-srinivas](https://github.com/dfdfgfd)
+    [chaitra-srinivas](https://github.com/chaitra-srinivas)
     or you can reach me @ cmurthy.dev@gmail.com
     
     ## License
